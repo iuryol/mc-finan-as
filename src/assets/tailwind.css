@@ -1,0 +1,26 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+
+#logoheader {
+    background-color: #212429;
+}
+
+#fixedcolumn {
+    background-color: #212429;
+}
+
+#menucolumncolor {
+    background-color: #3c4650;
+}
+
+#topmenuitem {
+    background-color: #536070;
+}
+
+#mainbackground {
+    background-color: #f7f3f0;
+}
