@@ -566,7 +566,7 @@ export default {
         const resultado = this.HoldResult + row.valor;
         this.HoldResult = parseFloat(resultado.toFixed(2));
       });
-      console.log("Dados Carregado [depesa]:OK ");
+      console.log("Dados Carregado na depesa :OK ");
       db.close();
     });
   },
