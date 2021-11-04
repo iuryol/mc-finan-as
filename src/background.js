@@ -1,5 +1,3 @@
-
-
 import { app, protocol, BrowserWindow, Main} from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 //import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'

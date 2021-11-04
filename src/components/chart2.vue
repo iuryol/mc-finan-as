@@ -39,7 +39,7 @@ export default {
             data: [props.valorA, props.valorB, props.valorC, props.valorD],
           },
         ],
-        labels: ['Manutenção', 'Insumo', 'Salário', 'Investimento'],
+       
         
         
       },

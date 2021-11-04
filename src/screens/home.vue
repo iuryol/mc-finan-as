@@ -17,8 +17,8 @@
     </div>
 
     <div class="third-row flex flex-row">
-      
-      <div v-if="chartload" class="chart-container">
+      <div class="chart-holder">
+        <div v-if="chartload" class="chart-container">
         <chart3 
         v-bind:ValorJanR='TotalJanR'  
         v-bind:ValorFevR='TotalFevR' 
@@ -45,6 +45,9 @@
         v-bind:ValorNovD='TotalNovD'  
         v-bind:ValorDezD='TotalDezD'/>
       </div>
+
+      </div>
+      
       
 
       <div class="card-chart flex flex-row">
@@ -130,7 +133,7 @@ export default {
       chartload:false,
       //grafico
       TotalJanR:0,
-      TotalFevR:0,
+      TotalFevR:0,  
       TotalMarR:0,
       TotalAbrR:0,
       TotalMaiR:0,
@@ -160,32 +163,36 @@ export default {
 
   mounted() {
     this.$nextTick(function () {
-      console.log("disparando função Pegar Dados");
+      // obter o ano presente
+       const date = new Date();
+       var AnoAtual = date.getFullYear()
+      
+      // inicializando a conexão ao database
       const db = new sqlite3.Database("./database/storage.db",(err) => {
           if (err) {
             return console.error(err.message);
           }
-          console.log("Conexão ao Database [HOME]: OK");
+          console.log("Conexão ao Database [HOME]: SUCESSO");
         }
       );
 
-      // carregar o valor total de receitas no card
-      db.each("SELECT valor FROM receita", (err, row) => {
+      // carregar o valor total das receitas do ano atual no card
+      db.each("SELECT valor FROM receita WHERE dataAno = ?",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
 
-        // console.log(row.nome, row.valor, row.tipo, row.data, row.id)
+       
         this.HoldReceita = this.HoldReceita + row.valor;
         this.HoldReceita = parseFloat(this.HoldReceita.toFixed(2));
       });
 
-      // carregar o valor total de despesas no card
-      db.each("SELECT valor FROM despesa", (err, row) => {
+      // carregar o valor total das despesas do ano no card
+      db.each("SELECT valor FROM despesa WHERE dataAno = ?",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
-        // console.log(row.nome, row.valor, row.tipo, row.data, row.id)
+        
         this.HoldDespesa = this.HoldDespesa + row.valor;
         this.HoldDespesa = parseFloat(this.HoldDespesa.toFixed(2));
         
@@ -194,7 +201,7 @@ export default {
 
 
       db.serialize(()=>{
-        db.each("SELECT valor FROM receita WHERE dataMes = 1;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 1 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -205,7 +212,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 2;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 2 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -216,7 +223,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 3;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 3 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -227,7 +234,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 4;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 4 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -238,7 +245,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 5;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 5 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -249,7 +256,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 6;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 6 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -260,7 +267,7 @@ export default {
        
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 7;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 7 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -271,7 +278,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 8;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 8 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -282,7 +289,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 9;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 9 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -293,7 +300,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM receita WHERE dataMes = 10;", (err, row) => {
+        db.each("SELECT valor FROM receita WHERE dataMes = 10 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -306,7 +313,7 @@ export default {
       });
           
 
-      db.each("SELECT valor FROM receita WHERE dataMes = 11;", (err, row) => {
+      db.each("SELECT valor FROM receita WHERE dataMes = 11 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -318,7 +325,7 @@ export default {
         
       });
 
-      db.each("SELECT valor FROM receita WHERE dataMes = 12;", (err, row) => {
+      db.each("SELECT valor FROM receita WHERE dataMes = 12 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -332,7 +339,7 @@ export default {
 
 
 
-      db.each("SELECT valor FROM despesa WHERE dataMes = 1;", (err, row) => {
+      db.each("SELECT valor FROM despesa WHERE dataMes = 1 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -343,7 +350,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 2;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 2 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -354,7 +361,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 3;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 3 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -365,7 +372,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 4;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 4 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -376,7 +383,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 5;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 5 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -387,7 +394,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 6;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 6 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -398,7 +405,7 @@ export default {
        
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 7;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 7 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -409,7 +416,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 8;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 8 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -420,7 +427,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 9;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 9 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -431,7 +438,7 @@ export default {
         
         
       });
-        db.each("SELECT valor FROM despesa WHERE dataMes = 10;", (err, row) => {
+        db.each("SELECT valor FROM despesa WHERE dataMes = 10 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -444,7 +451,7 @@ export default {
       });
           
 
-      db.each("SELECT valor FROM despesa WHERE dataMes = 11;", (err, row) => {
+      db.each("SELECT valor FROM despesa WHERE dataMes = 11 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -456,7 +463,7 @@ export default {
         
       });
 
-      db.each("SELECT valor FROM despesa WHERE dataMes = 12;", (err, row) => {
+      db.each("SELECT valor FROM despesa WHERE dataMes = 12 AND dataAno = ?;",[AnoAtual], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -519,9 +526,9 @@ padding-bottom: 0px;
   
 }
 .third-row{
-   /*  border: 1px solid black;*/
+    /* border: 1px solid black; */
  
- margin-left: 50px;
+ margin-left: 10px;
   padding-top:80px ;
 }
 .teste {
@@ -562,13 +569,17 @@ padding-bottom: 0px;
   color: black;
 }
 .chart-container{
-  width: 65%;
+ 
   
+}
+.chart-holder{
+ min-width: 600px;
   
 }
 .card-chart{
   background-color: #111827 ;
  width: 50%;
+ max-width:500px;
  margin-left: 20px;
   border: 3px solid  rgb(110, 231, 183);
   border-radius: 10px;

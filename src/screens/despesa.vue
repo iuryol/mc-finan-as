@@ -6,18 +6,19 @@
         <h1 class="screen-title"><b>Despesa: </b></h1>
       </div>
 
-      <div class="second-col flex flex-col">
+      <div class="w-full second-col flex flex-col">
         <div class="flex justify-end">
           <div class="flex flex-col mr-6 text-white button-cadastro-select">
             <label class="mx-auto my-0 label-filtro"><b>Tipo:</b></label>
             <select
+              id="stipo"
               class="bg-gray-900 justify-center text-center"
-              v-on:change="getFilter($event)"
-            >
-              <option value="adicaoRecente">Manutenção</option>
-              <option value="adicaoAntiga">Insumo</option>
-              <option value="valorAlto">Salario</option>
-              <option value="valorBaixo">Investimento</option>
+              v-on:change="getTipoFilter($event)"
+            > <option value="reset">---</option>
+              <option value="Manutenção">Manutenção</option>
+              <option value="Insumo">Insumo</option>
+              <option value="Salário">Salario</option>
+              <option value="Investimento">Investimento</option>
             </select>
           </div>
 
@@ -26,30 +27,32 @@
               ><b>Mês:</b></label
             >
             <select
+            id="smes"
               class="bg-gray-900 text-white"
               v-on:change="getMonthFilter($event)"
-            >
-              <option value="0">Janeiro</option>
-              <option value="1">Fevereiro</option>
-              <option value="2">Março</option>
-              <option value="3">Abril</option>
-              <option value="4">Maio</option>
-              <option value="5">Junho</option>
-              <option value="6">Julho</option>
-              <option value="7">Agosto</option>
-              <option value="8">Setembro</option>
-              <option value="9">Outubro</option>
-              <option value="10">Novembro</option>
-              <option value="11">Dezembro</option>
+            >  <option value="0">---</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
             </select>
           </div>
 
           <div class="flex flex-col text-white button-cadastro-select">
             <label class="mx-auto my-0 label-filtro"><b>Filtro:</b></label>
             <select
+                id="sfiltro"
               class="bg-gray-900 justify-center"
               v-on:change="getFilter($event)"
-            >
+            > <option value="reset">---</option>
               <option value="adicaoRecente">Adição mais recente</option>
               <option value="adicaoAntiga">Adição mais antiga</option>
               <option value="valorAlto">Valor mais alto</option>
@@ -58,27 +61,30 @@
           </div>
         </div>
       </div>
-
-      <div class="third-col flex flex-col">
-        <div
-          class="notification animate__animated animate__fadeOut"
-          v-if="AlertInsertControl"
-        >
-          <popup1 />
-        </div>
-        <div
-          class="notification animate__animated animate__fadeOut"
-          v-if="AlertDeleteControl"
-        >
-          <popup2 />
-        </div>
-        <button @click="AbrirFormulario()" class="button-cadastro">
-          Nova Saida
-        </button>
+      <div class="third-col flex flex-col"> 
+            <button @click="resetarFiltros()" class="button-cadastro"> Limpar </button>
+          </div>
+        <div class="third-col flex flex-col">
+          <div
+            class="notification animate__animated animate__fadeOut"
+            v-if="AlertInsertControl"
+          >
+            <popup1 />
+            </div>
+          <div
+            class="notification animate__animated animate__fadeOut"
+            v-if="AlertDeleteControl"
+          >
+            <popup2 />
+          </div>
+          <div class=" flex flex-row">
+                  <button @click="AbrirFormulario()" class="button-cadastro"> Nova Saida </button>
+            </div>
+       
       </div>
     </div>
 
-    <div class="body-table flex flex-col">
+    <div class="lower-space flex flex-col">
       <table class="table-model table-auto gap-y-10">
         <thead class="">
           <tr class="bg-gray-900">
@@ -173,7 +179,7 @@
             </td>
 
             <td class="px-4 py-1">
-              <span> {{ Item.data }} </span>
+              <span> {{  FormatedDate(Item.data) }} </span>
             </td>
 
             <td class="px-4 py-1">
@@ -190,7 +196,7 @@
               </button>
               <button
                 v-show="Item.nome != '...'"
-                @click="ConfirmaDelete(Item.id)"
+                @click="ConfirmaDelete(Item.id,Item.nome,Item.valor)"
                 class="delete"
               >
                 Remover
@@ -380,7 +386,7 @@
             <div class="row1 flex flex-row">
               <div class="col1 mr-1 w-full flex flex-col">
                 <label class="item-label" for="nome"> <b>Nome:</b></label>
-                <h2 id="nome" class="vitrine">{{ NomeDetalhe }}></h2>
+                <h2 id="nome" class="vitrine">{{ NomeDetalhe }}</h2>
                 <label class="item-label2" for="valor"> <b> Valor: </b> </label>
                 <h2 id="valor" class="vitrine">{{ ValorDetalhe }}</h2>
               </div>
@@ -388,7 +394,7 @@
                 <label class="item-label" for="tipo"> <b> Tipo: </b> </label>
                 <h2 id="tipo" class="vitrine">{{ TipoDetalhe }}</h2>
                 <label class="item-label2" for="data"><b> Data: </b> </label>
-                <h2 id="data" class="vitrine">{{ DataDetalhe }}</h2>
+                <h2 id="data" class="vitrine">{{ FormatedDate(DataDetalhe) }}</h2>
               </div>
             </div>
             <div class="row2">
@@ -415,6 +421,8 @@
       <div class="delete-wrapper animate__animated animate__bounceIn">
         <div class="delete-box flex flex-col">
           <span><b>Deseja mesmo remover este item ?</b></span>
+          <span>Item:   {{ItemDeleteNome}}</span>
+          <span>Valor:  {{ItemDeleteValor}} R$</span>
           <div class="mt-10 flex flex-row">
             <button
               @click="DeletarItem(ItemDeleteId)"
@@ -506,6 +514,8 @@ export default {
 
       //variaves delete
       ItemDeleteId: 0,
+      ItemDeleteNome:'',
+      ItemDeleteValor:0,
     };
   },
 
@@ -521,7 +531,7 @@ export default {
       // paginação
       this.lastClickedPage = "firstPageDespesa";
 
-      db.all("SELECT * FROM despesa", (err, row) => {
+      db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -529,19 +539,9 @@ export default {
         this.dadosPage = row;
         this.dadosFilterMonth = row;
         //------------------------------------------------------------ data adc não pode ficar vazia
-        this.dados.sort(function (a, b) {
-          return (
-            parseInt(b.dataAdc.substring(0, 2)) -
-            parseInt(a.dataAdc.substring(0, 2))
-          );
-        });
+        
 
-        this.dadosPage.sort(function (a, b) {
-          return (
-            parseInt(b.dataAdc.substring(0, 2)) -
-            parseInt(a.dataAdc.substring(0, 2))
-          );
-        });
+        
 
         this.dados = this.dadosPage.slice(0, 10);
         if (this.dados.length < 10) {
@@ -582,6 +582,12 @@ export default {
 
   //================================ metodos principais
   methods: {
+
+    FormatedDate:function(data){
+      return data.toString().split("-").reverse().join("/");
+    },
+
+
     AlertInsert() {
       setTimeout(() => {
         this.AlertInsertControl = false;
@@ -598,31 +604,69 @@ export default {
       this.AlertDeleteControl = true;
     },
 
-    ReverseDate(DataStrg) {
-      DataStrg.replace;
-      this.dataR = DataStrg.split("-").reverse().join("/");
-    },
-
-    //função para mostrar o mês selecionado, caso não tenha mês selecionado só vai aparecer o alert(depois adiciona qualquer outra mensagem), ela faz um regex do numero do mês e
-    //compara com o value do event.target que é o valor em numero de cada mês que vem lá do select obs: eu subtraio 1 do currentmonth pq ele começa do 1 e não do 0
+  
     getMonthFilter(event) {
-      this.dados = this.dadosFilterMonth;
-      this.dadosPage = this.dadosFilterMonth;
-
-      var dadosFiltroMes = [];
-      this.dados.map(function (match) {
-        var regex = /(?<=\/)(.*?)(?=\/)/g;
-        var currentMonth = match.data.match(regex);
-        if (parseInt(currentMonth[0]) - 1 == parseInt(event.target.value)) {
-          dadosFiltroMes.push(match);
-        } else {
-          console.log("O mês escolhido não tem entradas disponiveis");
+      
+      console.log(event.target.value)
+      if(event.target.value != '0'){
+        var mes = event.target.value
+        db.all("SELECT * FROM despesa WHERE dataMes = ? ORDER BY data DESC;",[mes], (err, row) => {
+        if (err) {
+          return console.error(err.message);
         }
-      });
 
-      this.dadosPage = dadosFiltroMes;
-      this.dados = this.dadosPage;
-    },
+        if (row.length != 0){
+          this.dados = row;
+        this.dadosPage = row;
+        this.dadosFilterMonth = row;
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+     
+
+        }else{
+           this.dados = row;
+        this.dadosPage = row;
+        this.dadosFilterMonth = row;
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult = 0
+        
+        }
+        
+        if (this.dados.length < 10) {
+          while (this.dados.length < 10) {
+            this.dados.push({
+              nome: "...",
+              tipo: "...",
+              data: "...",
+              valor: 0,
+            });
+          }
+      }
+   
+      })
+      this.voltarFisrt()
+      }else{
+
+        db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+
+        this.dadosPage = row;
+        this.dados = this.dadosPage.slice(0, 10);
+       this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+        while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+        this.voltarFisrt()
+      })
+    }  
+  },
 
     addNextPages() {
       this.nextPage++
@@ -827,43 +871,88 @@ export default {
     },
 
     getFilter(event) {
+      
+
+
       if (event.target.value == "adicaoRecente") {
-        this.dadosPage.sort(function (a, b) {
-          return (
-            parseInt(a.data.substring(0, 2)) - parseInt(b.data.substring(0, 2))
-          );
-        });
+        
+        db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        this.dados = row;
+        this.dadosPage = row;
+        this.dadosFilterMonth = row;
+      
+        console.log(this.dados)
+       
+      this.dados = this.dadosPage.slice(0, 10);
+
+       while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+   
+      //--------------------------------------------------------------
+      });
+
+          console.log(this.dadosPage)
+        this.dados = this.dadosPage.slice(0, 10);
+
+        this.$refs.firstPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
+        this.$refs.secondPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.thirdPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.forthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.fifthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+
+         
+      } 
+      else if (event.target.value == "adicaoAntiga") {
+       db.all("SELECT * FROM despesa ORDER BY data ASC", (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        this.dados = row;
+        this.dadosPage = row;
+        this.dadosFilterMonth = row;
+        
+        console.log(this.dados)
+       
+      this.dados = this.dadosPage.slice(0, 10);
+
+       while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+   
+      //--------------------------------------------------------------
+      });
+    
 
         this.dados = this.dadosPage.slice(0, 10);
 
-        this.$refs.firstPageDespesa.className =
+        this.$refs.firstPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPageDespesa.className =
+        this.$refs.secondPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPageDespesa.className =
+        this.$refs.thirdPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPageDepesa.className =
+        this.$refs.forthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPageDespesa.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-      } else if (event.target.value == "adicaoAntiga") {
-        this.dadosPage.sort(function (a, b) {
-          return (
-            parseInt(b.data.substring(0, 2)) - parseInt(a.data.substring(0, 2))
-          );
-        });
-
-        this.dados = this.dadosPage.slice(0, 10);
-
-        this.$refs.firstPageDespesa.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPageDespesa.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPageDespesa.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPageDespesa.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPageDespesa.className =
+        this.$refs.fifthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
       } else if (event.target.value == "valorBaixo") {
         this.dadosPage.sort(function (a, b) {
@@ -872,15 +961,15 @@ export default {
 
         this.dados = this.dadosPage.slice(0, 10);
 
-        this.$refs.firstPageDespesa.className =
+        this.$refs.firstPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPageDespesa.className =
+        this.$refs.secondPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPageDespesa.className =
+        this.$refs.thirdPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPageDespesa.className =
+        this.$refs.forthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPageDespesa.className =
+        this.$refs.fifthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
       } else if (event.target.value == "valorAlto") {
         this.dadosPage.sort(function (a, b) {
@@ -889,20 +978,28 @@ export default {
 
         this.dados = this.dadosPage.slice(0, 10);
 
-        this.$refs.firstPageDespesa.className =
+        this.$refs.firstPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPageDespesa.className =
+        this.$refs.secondPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPageDespesa.className =
+        this.$refs.thirdPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPageDespesa.className =
+        this.$refs.forthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPageDespesa.className =
+        this.$refs.fifthPage.className =
           "px-3 py-1 mr-3 cursor-pointer rounded-full";
       }
+         while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
     },
 
-    // abrir formulario para nova entrar
+    
     AbrirFormulario: function () {
       console.log("Disparando função AbrirFormulario:", this.FormControl);
       if (this.FormControl === false) this.FormControl = true;
@@ -914,18 +1011,16 @@ export default {
       this.descR = "";
     },
 
-    // função para buscar todos os dados da  e atualizar a tabela
+    
     Update: function () {
-      db.all("SELECT * FROM despesa", (err, row) => {
+      db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
         if (err) {
           console.log("erro ao atualizar dados:" + err.message);
         }
-        this.dados = row; //passar o objeto para a variavel dados da tabela
-        this.dadosPage = this.dados;
-        var lastSlice = this.dados.length;
-        var initialSlice = lastSlice - 10;
+        this.dadosPage = row
+        this.dados = this.dadosPage.slice(0, 10);
 
-        this.dados = this.dadosPage.slice(initialSlice, lastSlice);
+        
 
         if (this.dados.length < 10) {
           while (this.dados.length < 10) {
@@ -972,20 +1067,20 @@ export default {
         console.log("item deletado" + IdItem);
       });
       this.Update();
+      const resultado = this.HoldResult - this.ItemDeleteValor;
+      this.HoldResult = parseFloat(resultado.toFixed(2));
       this.ConfirmaDelete();
     },
 
-    // função para inserir dados na receita
+    
     EnviarDados: function () {
       const data = new Date();
-      this.dataAdc =
-        data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
+      this.dataAdc = data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
 
-      this.ReverseDate(this.dataR);
       const datePattern = this.dataR;
-      const date = datePattern.split("/");
+      const date = datePattern.split("-");
       this.dataMesR = date[1];
-      this.dataAnoR = date[2];
+      this.dataAnoR = date[0];
       db.run(
         "INSERT INTO despesa(nome,valor,tipo,data,dataMes,dataAno,dataAdc,desc) VALUES(?,?,?,?,?,?,?,?);",
         [
@@ -1013,11 +1108,133 @@ export default {
       this.AbrirFormulario(); //chamar função para fechar o formulario
     },
 
-    ConfirmaDelete(itemid) {
+    ConfirmaDelete(itemid,itemnome,itemvalor) {
       this.ItemDeleteId = itemid;
+      this.ItemDeleteNome = itemnome;
+      this.ItemDeleteValor = itemvalor;
 
       if (this.DeleteControl === false) this.DeleteControl = true;
       else this.DeleteControl = false;
+    },
+    getTipoFilter(event){
+        
+      if(event.target.value != 'reset'){
+         const TipoSelect = event.target.value
+        db.all("SELECT * FROM despesa WHERE tipo = ? ORDER BY data DESC; ",[TipoSelect], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        if(row.length != 0){
+          this.dadosPage = row
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+
+           while (this.dados.length < 10) {
+            this.dados.push({
+              nome: "...",
+              tipo: "...",
+              data: "...",
+              valor: 0,
+            });
+          }
+        }else{
+          this.dadosPage = row
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult = 0
+        while (this.dados.length < 10) {
+            this.dados.push({
+              nome: "...",
+              tipo: "...",
+              data: "...",
+              valor: 0,
+            });
+          }
+           
+        }
+         this.voltarFisrt()
+      });
+      }else{
+        db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        if(row.length != 0){
+          this.dadosPage = row;
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+        while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+        }else{
+          this.dadosPage = row;
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult  = 0
+        while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+        }
+         this.voltarFisrt()
+      })
+      }
+    },
+    // função para limpar a aplicação de filtros
+    resetarFiltros(){
+
+    db.all("SELECT * FROM despesa ORDER BY data DESC", (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+
+        this.dadosPage = row;
+        this.dados = this.dadosPage.slice(0, 10);
+        this.HoldResult  = row.map(u => u.valor).reduce((total,valor)=> total + valor)
+        while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+      })
+
+      document.getElementById("smes").value = 0;
+      document.getElementById("stipo").value = "reset";
+      document.getElementById("sfiltro").value = "reset";
+      this.voltarFisrt()
+    },
+    // funcção para reiniciar a paginação para o inicio
+    voltarFisrt(){
+      // setar a paginação para primeira pagina
+        this.nextPage = 1;
+      //muda a cor da pagina escoliha
+        this.$refs.firstPageDespesa.className =
+
+          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
+        this.$refs.secondPageDespesa.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.thirdPageDespesa.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.forthPageDespesa.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.fifthPageDespesa.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        //reiniciar a contagem
+        document.getElementById("firstPageDespesa").innerHTML = 1
+        document.getElementById("secondPageDespesa").innerHTML = 2
+        document.getElementById("thirdPageDespesa").innerHTML = 3
+        document.getElementById("forthPageDespesa").innerHTML = 4
+        document.getElementById("fifthPageDespesa").innerHTML = 5
     },
   },
 };
@@ -1040,7 +1257,7 @@ export default {
 .table-model {
   min-width: 100%;
   min-height: 100%;
-  font-family: "Roboto", sans-serif;
+
   font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -1156,12 +1373,12 @@ export default {
   text-shadow: 0px 0px 2px rgb(75, 75, 75);
   color: rgba(31, 41, 55);
 
-  margin-right: 250px;
+  
 }
 .second-col {
   padding-top: 80px;
   font-family: "Source Sans Pro", sans-serif;
-  width: 100%;
+  
   margin-right: 20px;
   letter-spacing: 1.3px;
 }
@@ -1170,6 +1387,10 @@ export default {
   padding-top: 5px;
   font-family: "Source Sans Pro", sans-serif;
   justify-content: end;
+}
+
+template{
+  overflow: hidden;
 }
 
 /* container pai principal*/
@@ -1264,7 +1485,7 @@ button:focus {
   padding-bottom: 10px;
 }
 .lower-space {
-  height: 80%;
+  height: 70%;
 }
 .container-button {
   width: 250px;
