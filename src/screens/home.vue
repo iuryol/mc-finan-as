@@ -172,7 +172,7 @@ export default {
           if (err) {
             return console.error(err.message);
           }
-          console.log("Conexão ao Database [HOME]: SUCESSO");
+          
         }
       );
 
@@ -206,7 +206,7 @@ export default {
           return console.error(err.message);
         }
 
-        // console.log(row.nome, row.valor, row.tipo, row.data, row.id)
+        
         const result = this.TotalJanR + row.valor;
         this.TotalJanR = parseFloat(result.toFixed(2));
         
@@ -217,7 +217,7 @@ export default {
           return console.error(err.message);
         }
 
-        // console.log(row.nome, row.valor, row.tipo, row.data, row.id)
+        
         const result = this.TotalFevR + row.valor;
         this.TotalFevR = parseFloat(result.toFixed(2));
         
@@ -480,7 +480,7 @@ export default {
        
       
 
-      console.log("Dados Carregados [HOME]: OK");
+      
       db.close();
 
 
@@ -573,13 +573,14 @@ padding-bottom: 0px;
   
 }
 .chart-holder{
- min-width: 600px;
+ min-width: 650px;
   
 }
 .card-chart{
   background-color: #111827 ;
- width: 50%;
- max-width:500px;
+width: 80%;
+
+ max-width:380px;
  margin-left: 20px;
   border: 3px solid  rgb(110, 231, 183);
   border-radius: 10px;

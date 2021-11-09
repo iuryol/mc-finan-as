@@ -71,7 +71,7 @@ export default {
   background-color: rgba(31, 41, 55);
   color: rgb(255, 255, 255);
 
-  font-family: 'Source Sans Pro', sans-serif;
+  
   font-size: 20px;
 }
 
@@ -79,6 +79,8 @@ export default {
   font-size: 17px;
   color: rgb(255, 255, 255);
   float: left;
+  letter-spacing: 1.3px;
+    font-family: 'Source Sans Pro', sans-serif;
   letter-spacing: 1.3px;
 }
 

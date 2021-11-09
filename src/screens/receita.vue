@@ -404,6 +404,7 @@ import card1 from "../components/card1";
 import popup1 from "../components/popup1";
 import popup2 from "../components/popup2";
 
+
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("./database/storage.db");
 
@@ -474,19 +475,34 @@ export default {
     
    
   },
+  
+  
+
+ 
 
   // =============================================================metodos do lifecycle
   mounted() {
+
+    
+    
+   
+
+
     this.$nextTick(function () {
+        
       const db = new sqlite3.Database(
         "./database/storage.db",
         (err) => {
           if (err) {
             return console.error(err.message);
           }
-          console.log("conexão ao Database[RECEITA]:OK");
+          
         }
       );
+
+     
+     
+     
       // paginação
       this.lastClickedPage = "firstPage"
       db.all("SELECT * FROM receita ORDER BY data DESC", (err, row) => {
@@ -502,7 +518,7 @@ export default {
 
       this.dados = this.dadosPage.slice(0, 10);
       if (this.dados.length < 10) {
-        //console.log(this.dados)
+        
 
         while (this.dados.length < 10) {
           this.dados.push({
@@ -523,7 +539,7 @@ export default {
         const resultado = this.HoldResult + row.valor;
         this.HoldResult = parseFloat(resultado.toFixed(2));
       });
-      console.log("Dados Carregado [RECEITA]:OK ");
+      
       db.close();
     });
   },
@@ -551,7 +567,7 @@ export default {
     AlertInsert(){
       setTimeout(() => {
                   this.AlertInsertControl = false
-                  console.log(this.AlertInsertControl)
+                  
                   }, 1500)
         this.AlertInsertControl = true
     },
@@ -559,7 +575,7 @@ export default {
     AlertDelete(){
       setTimeout(() => {
                   this.AlertDeleteControl = false
-                  console.log(this.AlertDeleteControl)
+                  
                   }, 1500)
         this.AlertDeleteControl = true
     },
@@ -567,7 +583,7 @@ export default {
   
     getMonthFilter(event) {
       
-      console.log(event.target.value)
+     
       if(event.target.value != '0'){
         var mes = event.target.value
         db.all("SELECT * FROM receita WHERE dataMes = ? ORDER BY data DESC;",[mes], (err, row) => {
@@ -580,7 +596,9 @@ export default {
         this.dadosPage = row;
         this.dadosFilterMonth = row;
         this.dados = this.dadosPage.slice(0, 10);
-        this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+        
+        const filterresult = row.map(u => u.valor).reduce((total,valor)=> total + valor)
+        this.HoldResult = parseFloat(filterresult.toFixed(2))
         
 
         }else{
@@ -613,7 +631,8 @@ export default {
 
         this.dadosPage = row;
         this.dados = this.dadosPage.slice(0, 10);
-       this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+       const filterresult = row.map(u => u.valor).reduce((total,valor)=> total + valor) 
+         this.HoldResult = parseFloat(filterresult.toFixed(2))
         while (this.dados.length < 10) {
           this.dados.push({
             nome: "...",
@@ -637,7 +656,8 @@ export default {
         if(row.length != 0){
           this.dadosPage = row
         this.dados = this.dadosPage.slice(0, 10);
-       this.HoldResult  = parseFloat(row.map(u => u.valor).reduce((total,valor)=> total + valor)).toFixed(2)
+      const filterresult = row.map(u => u.valor).reduce((total,valor)=> total + valor) 
+         this.HoldResult = parseFloat(filterresult.toFixed(2))
 
            while (this.dados.length < 10) {
             this.dados.push({
@@ -672,7 +692,8 @@ export default {
         if(row.length != 0){
           this.dadosPage = row;
         this.dados = this.dadosPage.slice(0, 10);
-        this.HoldResult  = row.map(u => u.valor).reduce((total,valor)=> total + valor)
+        const filterresult = row.map(u => u.valor).reduce((total,valor)=> total + valor) 
+         this.HoldResult = parseFloat(filterresult.toFixed(2))
         while (this.dados.length < 10) {
           this.dados.push({
             nome: "...",
@@ -730,7 +751,8 @@ export default {
 
         this.dadosPage = row;
         this.dados = this.dadosPage.slice(0, 10);
-        this.HoldResult  = row.map(u => u.valor).reduce((total,valor)=> total + valor)
+        const filterresult = row.map(u => u.valor).reduce((total,valor)=> total + valor) 
+         this.HoldResult = parseFloat(filterresult.toFixed(2))
         while (this.dados.length < 10) {
           this.dados.push({
             nome: "...",
@@ -750,7 +772,7 @@ export default {
 
     addNextPages() {
       this.nextPage++
-      console.log(this.nextPage)
+      
       var pageItems = Object.values(document.querySelectorAll("li")).slice(1,6)
       for(var i = 0; i < pageItems.length; i++) {
         if(pageItems[i].innerText == String(this.nextPage)) {
@@ -760,7 +782,7 @@ export default {
         }
       }
       var nextFive = this.nextPage - 1
-      console.log('este é o nextfive'+ nextFive)
+      
       if (nextFive % 5 == 0 ) {
         pageItems[0].className = "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white"
         document.getElementById("firstPage").innerHTML = parseInt(document.getElementById("firstPage").innerHTML) + 5;
@@ -796,7 +818,7 @@ export default {
         this.nextPage = this.nextPage - 1
         
         var pageItems = Object.values(document.querySelectorAll("li")).slice(1,6)
-        console.log(this.nextPage)
+        
         if(this.nextPage >= 1 && Math.sign(this.nextPage) == 1) {
           for(var i = 0; i < pageItems.length; i++) {
             if(pageItems[i].innerText == String(this.nextPage)) {
@@ -914,7 +936,7 @@ export default {
 
         this.dados = this.dadosPage.slice(startSlice, lastSlice);
         if (this.dados.length < 10) {
-          //console.log(this.dados)
+          
 
           while (this.dados.length < 10) {
             this.dados.push({
@@ -937,7 +959,7 @@ export default {
           });
         }
         this.dados = emptyResult.slice(0, 10);
-        //console.log(emptyResult)
+        
       }
     },
     
@@ -955,7 +977,7 @@ export default {
         this.dadosPage = row;
         this.dadosFilterMonth = row;
       
-        console.log(this.dados)
+       
        
       this.dados = this.dadosPage.slice(0, 10);
 
@@ -971,7 +993,7 @@ export default {
       //--------------------------------------------------------------
       });
 
-          console.log(this.dadosPage)
+          
         this.dados = this.dadosPage.slice(0, 10);
 
         this.$refs.firstPage.className =
@@ -996,7 +1018,7 @@ export default {
         this.dadosPage = row;
         this.dadosFilterMonth = row;
         
-        console.log(this.dados)
+       
        
       this.dados = this.dadosPage.slice(0, 10);
 
@@ -1075,7 +1097,7 @@ export default {
 
     // abrir formulario para nova entrar
     AbrirFormulario: function () {
-      console.log("Disparando função AbrirFormulario:", this.FormControl);
+      
       if (this.FormControl === false) this.FormControl = true;
       else this.FormControl = false;
       this.tipoR = "";
@@ -1092,6 +1114,7 @@ export default {
       db.all("SELECT * FROM receita ORDER BY data DESC", (err, row) => {
         if (err) {
           console.log("erro ao atualizar dados:" + err.message);
+
         }
         this.dadosPage = row
         this.dados = this.dadosPage.slice(0, 10);
@@ -1136,7 +1159,7 @@ export default {
           console.log(err);
         }
         this.AlertDelete();
-        console.log("item deletado" + IdItem);
+        
       });
       this.Update();
        const resultado = this.HoldResult - this.ItemDeleteValor;
@@ -1166,9 +1189,10 @@ export default {
           this.AlertInsert()
 
         })
-      console.log("dados inseridos [RECEITA]");
+      
       this.Update();  
-      const resultado = this.HoldResult + this.valorR;
+      const resultado = this.HoldResult + this.valorR
+     
       this.HoldResult = parseFloat(resultado.toFixed(2)); // atualizar o valor do card
        // chamar função para atualizar tabela
       this.AbrirFormulario(); //chamar função para fechar o formulario
@@ -1176,15 +1200,19 @@ export default {
     },
 
     ConfirmaDelete(itemid,itemnome,itemvalor){
+
       this.ItemDeleteId = itemid
       this.ItemDeleteNome =  itemnome
       this.ItemDeleteValor =  itemvalor
 
       if(this.DeleteControl === false)
-        this.DeleteControl = true
+
+            this.DeleteControl = true
+            
       else
-      this.DeleteControl = false
-      this.ShowDetail = false
+            this.DeleteControl = false
+            this.ShowDetail = false
+
     }
 
    

@@ -4,6 +4,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 
 const { ipcMain } = require('electron')
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
  let SplashWindow 
 
 
@@ -13,6 +14,9 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
+
+
+
 
 
 // ------------------------------------------------- create splash window
@@ -31,10 +35,11 @@ protocol.registerSchemesAsPrivileged([
  
   })
 
+    
   const url = require('url').format({
     protocol: 'file',
     slashes: true,
-    pathname: require('path').resolve('./src/screens/loading.html')
+    pathname: require('path').resolve('./loading.html')
   })
 
   SplashWindow.loadURL(url)
@@ -144,7 +149,9 @@ protocol.registerSchemesAsPrivileged([
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await window.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) window.webContents.openDevTools()
+    //descomente para ativar o console
+    if (!process.env.IS_TEST)
+     window.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
@@ -172,7 +179,9 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0)
+  
    createSplashWindow()
+   
 })
 
 // This method will be called when Electron has finished

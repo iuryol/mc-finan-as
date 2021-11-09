@@ -29,7 +29,7 @@ export default {
       type: "doughnut",
       data: {
         
-        
+        labels: ["Ativo", "Produção", "Crédito", "Saldo"],
         
         datasets: [
           {
@@ -40,6 +40,13 @@ export default {
         
         
       },
+      options: {
+      plugins: {
+    legend: {
+      display: false
+    }
+  },
+    },
     };
 
     return {

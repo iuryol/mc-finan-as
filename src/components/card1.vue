@@ -61,7 +61,7 @@ svg{
   background-color: #1F2937;
   color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.637) 0px 3px 8px;
-  font-family: 'Source Sans Pro', sans-serif;
+ 
   
   font-size: 20px;
 }      
@@ -76,6 +76,6 @@ svg{
 
 .value-title {
   font-size: 20px;
-  font-family: 'Source Sans Pro', sans-serif;
+  
 }
 </style>
