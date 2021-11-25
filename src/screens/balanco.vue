@@ -8,7 +8,8 @@
       <div class="fisrt-col">
         <div class="tipo-texto-grahp">  </div>
         <div id="chartrec" v-if="ChartLoad" >
-          <chart1   v-bind:valorA='ativo' v-bind:valorB='prod' v-bind:valorC="cred"  v-bind:valorD="sald" />
+          <chart1   v-bind:valorA='ativo' v-bind:valorB='prod' v-bind:valorC="cred"  v-bind:valorD="sald" v-bind:valorE="TotalServicoRec" />
+
       </div>
       </div>
 
@@ -34,6 +35,9 @@
           <h2 style="border-left: 5px solid #f54242; " class="tipo-item"><svg class="svg-icon" viewBox="0 0 20 20">
 							<path fill="none" d="M10.862,6.47H3.968v6.032h6.894V6.47z M10,11.641H4.83V7.332H10V11.641z M12.585,11.641h-0.861v0.861h0.861V11.641z M7.415,14.226h0.862v-0.862H7.415V14.226z M8.707,17.673h2.586c0.237,0,0.431-0.193,0.431-0.432c0-0.237-0.193-0.431-0.431-0.431H8.707c-0.237,0-0.431,0.193-0.431,0.431C8.276,17.479,8.47,17.673,8.707,17.673 M5.691,14.226h0.861v-0.862H5.691V14.226z M4.83,13.363H3.968v0.862H4.83V13.363z M16.895,4.746h-3.017V3.023h1.292c0.476,0,0.862-0.386,0.862-0.862V1.299c0-0.476-0.387-0.862-0.862-0.862H10c-0.476,0-0.862,0.386-0.862,0.862v0.862c0,0.476,0.386,0.862,0.862,0.862h1.293v1.723H3.106c-0.476,0-0.862,0.386-0.862,0.862v12.926c0,0.476,0.386,0.862,0.862,0.862h13.789c0.475,0,0.861-0.387,0.861-0.862V5.608C17.756,5.132,17.369,4.746,16.895,4.746 M10.862,2.161H10V1.299h0.862V2.161zM11.724,1.299h3.446v0.862h-3.446V1.299z M13.016,4.746h-0.861V3.023h0.861V4.746z M16.895,18.534H3.106v-2.585h13.789V18.534zM16.895,15.088H3.106v-9.48h13.789V15.088z M15.17,12.502h0.862v-0.861H15.17V12.502z M13.447,12.502h0.861v-0.861h-0.861V12.502zM15.17,10.778h0.862V9.917H15.17V10.778z M15.17,9.055h0.862V8.193H15.17V9.055z M16.032,6.47h-4.309v0.862h4.309V6.47zM14.309,8.193h-0.861v0.862h0.861V8.193z M12.585,8.193h-0.861v0.862h0.861V8.193z M13.447,14.226h2.585v-0.862h-2.585V14.226zM13.447,10.778h0.861V9.917h-0.861V10.778z M12.585,9.917h-0.861v0.861h0.861V9.917z"></path>
 						</svg><strong>Saldo:</strong></h2>
+            <h2 style="border-left: 5px solid #3c1747;" class="tipo-item">
+              <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;"><path d="M20.5 5A1.5 1.5 0 0 0 19 6.5V11h-1V4.5a1.5 1.5 0 0 0-3 0V11h-1V3.5a1.5 1.5 0 0 0-3 0V11h-1V5.5a1.5 1.5 0 0 0-3 0v10.81l-2.22-3.6a1.5 1.5 0 0 0-2.56 1.58l3.31 5.34A5 5 0 0 0 9.78 22H17a5 5 0 0 0 5-5V6.5A1.5 1.5 0 0 0 20.5 5z"></path></svg>
+              <strong>Serviço:</strong></h2>
 
             <h2 class="tipo-item-total"><b>Total</b></h2>
         </div>
@@ -44,6 +48,7 @@
           <h2 class="tipo-item"><strong> R$ {{ TotalCred }}</strong></h2>
           <h2 class="tipo-item"><strong> R$ {{ TotalProd }}</strong></h2>
           <h2 class="tipo-item"><strong> R$ {{ TotalSald }}</strong></h2>
+           <h2 class="tipo-item"><strong> R$ {{ TotalServicoRec }}</strong></h2>
            <h2 class="tipo-item-total-result"><strong> R$ {{ TotalReceita }}</strong></h2>
         </div>
       </div>
@@ -58,23 +63,23 @@
       <div class="fisrt-col">
         <div class="tipo-texto-grahp">  </div>
         <div v-if="ChartLoad" >
-          <chart2   v-bind:valorA='TotalManu' v-bind:valorB='TotalInsumo' v-bind:valorC="TotalSal"  v-bind:valorD="TotalInvestimento" />
+          <chart2   v-bind:valorA='TotalManu' v-bind:valorB='TotalInsumo' v-bind:valorC="TotalSal"  v-bind:valorD="TotalInvestimento" v-bind:valorE="TotalServico" v-bind:valorF="TotalImposto" />
       </div>
       </div>
       <div class="second-col flex flex-row">
         <div class="tipo">
           <h2 class="tipo-texto"><strong> Tipo </strong></h2>
-          <h2 style="border-left: 5px solid #424bf5; " class="tipo-item"><svg class="svg-icon" viewBox="0 0 20 20">
+          <h2 style="border-left: 5px solid #424bf5; " class="tipo-item-despesa"><svg class="svg-icon" viewBox="0 0 20 20">
 							<path fill="none" d="M10.032,8.367c-1.112,0-2.016,0.905-2.016,2.018c0,1.111,0.904,2.014,2.016,2.014c1.111,0,2.014-0.902,2.014-2.014C12.046,9.271,11.143,8.367,10.032,8.367z M10.032,11.336c-0.525,0-0.953-0.427-0.953-0.951c0-0.526,0.427-0.955,0.953-0.955c0.524,0,0.951,0.429,0.951,0.955C10.982,10.909,10.556,11.336,10.032,11.336z"></path>
 							<path fill="none" d="M17.279,8.257h-0.785c-0.107-0.322-0.237-0.635-0.391-0.938l0.555-0.556c0.208-0.208,0.208-0.544,0-0.751l-2.254-2.257c-0.199-0.2-0.552-0.2-0.752,0l-0.556,0.557c-0.304-0.153-0.617-0.284-0.939-0.392V3.135c0-0.294-0.236-0.532-0.531-0.532H8.435c-0.293,0-0.531,0.237-0.531,0.532v0.784C7.582,4.027,7.269,4.158,6.966,4.311L6.409,3.754c-0.1-0.1-0.234-0.155-0.376-0.155c-0.141,0-0.275,0.055-0.375,0.155L3.403,6.011c-0.208,0.207-0.208,0.543,0,0.751l0.556,0.556C3.804,7.622,3.673,7.935,3.567,8.257H2.782c-0.294,0-0.531,0.238-0.531,0.531v3.19c0,0.295,0.237,0.531,0.531,0.531h0.787c0.105,0.318,0.236,0.631,0.391,0.938l-0.556,0.559c-0.208,0.207-0.208,0.545,0,0.752l2.254,2.254c0.208,0.207,0.544,0.207,0.751,0l0.558-0.559c0.303,0.154,0.616,0.285,0.938,0.391v0.787c0,0.293,0.238,0.531,0.531,0.531h3.191c0.295,0,0.531-0.238,0.531-0.531v-0.787c0.322-0.105,0.636-0.236,0.938-0.391l0.56,0.559c0.208,0.205,0.546,0.207,0.752,0l2.252-2.254c0.208-0.207,0.208-0.545,0.002-0.752l-0.559-0.559c0.153-0.303,0.285-0.615,0.389-0.938h0.789c0.295,0,0.532-0.236,0.532-0.531v-3.19C17.812,8.495,17.574,8.257,17.279,8.257z M16.747,11.447h-0.653c-0.241,0-0.453,0.164-0.514,0.398c-0.129,0.496-0.329,0.977-0.594,1.426c-0.121,0.209-0.089,0.473,0.083,0.645l0.463,0.465l-1.502,1.504l-0.465-0.463c-0.174-0.174-0.438-0.207-0.646-0.082c-0.447,0.262-0.927,0.463-1.427,0.594c-0.234,0.061-0.397,0.271-0.397,0.514V17.1H8.967v-0.652c0-0.242-0.164-0.453-0.397-0.514c-0.5-0.131-0.98-0.332-1.428-0.594c-0.207-0.123-0.472-0.09-0.646,0.082l-0.463,0.463L4.53,14.381l0.461-0.463c0.169-0.172,0.204-0.434,0.083-0.643c-0.266-0.461-0.467-0.939-0.596-1.43c-0.06-0.234-0.272-0.398-0.514-0.398H3.313V9.319h0.652c0.241,0,0.454-0.162,0.514-0.397c0.131-0.498,0.33-0.979,0.595-1.43c0.122-0.208,0.088-0.473-0.083-0.645L4.53,6.386l1.503-1.504l0.46,0.462c0.173,0.172,0.437,0.204,0.646,0.083c0.45-0.265,0.931-0.464,1.433-0.597c0.233-0.062,0.396-0.274,0.396-0.514V3.667h2.128v0.649c0,0.24,0.161,0.452,0.396,0.514c0.502,0.133,0.982,0.333,1.433,0.597c0.211,0.12,0.475,0.089,0.646-0.083l0.459-0.462l1.504,1.504l-0.463,0.463c-0.17,0.171-0.202,0.438-0.081,0.646c0.263,0.448,0.463,0.928,0.594,1.427c0.061,0.235,0.272,0.397,0.514,0.397h0.651V11.447z"></path>
 						</svg><strong> Manutenção:</strong></h2>
-          <h2 style="border-left: 5px solid #053b01; " class="tipo-item"><svg class="svg-icon" viewBox="0 0 20 20">
+          <h2 style="border-left: 5px solid #053b01; " class="tipo-item-despesa"><svg class="svg-icon" viewBox="0 0 20 20">
 							<path fill="none" d="M10.034,3.635h4.106c0.227,0,0.41-0.184,0.41-0.411c0-0.227-0.184-0.411-0.41-0.411h-4.106c-0.227,0-0.411,0.184-0.411,0.411C9.623,3.451,9.807,3.635,10.034,3.635 M17.412,14.412h0.002l1.643-7.392l-0.008-0.002c0.008-0.032,0.02-0.063,0.02-0.098c0-0.227-0.184-0.411-0.41-0.411H5.492L4.909,4.338L4.903,4.34C4.853,4.171,4.702,4.045,4.516,4.045H1.41C1.184,4.045,1,4.229,1,4.456S1.184,4.867,1.41,4.867h2.791l2.564,9.563h0.001c0.035,0.117,0.119,0.209,0.229,0.258c-0.154,0.25-0.247,0.541-0.247,0.857c0,0.906,0.735,1.643,1.643,1.643c0.907,0,1.643-0.736,1.643-1.643c0-0.301-0.087-0.58-0.228-0.822h4.562c-0.141,0.242-0.229,0.521-0.229,0.822c0,0.906,0.736,1.643,1.643,1.643c0.908,0,1.643-0.736,1.643-1.643c0-0.316-0.092-0.607-0.246-0.857C17.295,14.637,17.381,14.535,17.412,14.412 M15.74,7.331h2.406l-0.365,1.643h-2.223L15.74,7.331z M5.712,7.331h2.722l0.183,1.643H6.152L5.712,7.331z M6.813,11.438L6.373,9.795h2.336l0.183,1.643H6.813z M7.034,12.26h1.949L9.165,13.9h-1.69L7.034,12.26zM8.392,16.365c-0.454,0-0.822-0.367-0.822-0.82s0.368-0.822,0.822-0.822c0.454,0,0.821,0.369,0.821,0.822S8.845,16.365,8.392,16.365 M11.678,13.9H9.991L9.809,12.26h1.869V13.9z M11.678,11.438H9.717L9.534,9.795h2.144V11.438zM11.678,8.974H9.443L9.261,7.331h2.417V8.974z M14.184,13.9h-1.686V12.26h1.869L14.184,13.9z M14.457,11.438h-1.959V9.795h2.143L14.457,11.438z M14.732,8.974h-2.234V7.331h2.416L14.732,8.974z M15.783,16.365c-0.453,0-0.82-0.367-0.82-0.82s0.367-0.822,0.82-0.822s0.822,0.369,0.822,0.822S16.236,16.365,15.783,16.365 M16.686,13.9H15.01l0.184-1.641h1.857L16.686,13.9zM15.283,11.438l0.184-1.643H17.6l-0.365,1.643H15.283z"></path>
 						</svg><strong> Insumo :</strong></h2>
-          <h2 style="border-left: 5px solid #42f5ec; " class="tipo-item"><svg class="svg-icon" viewBox="0 0 20 20">
+          <h2 style="border-left: 5px solid #42f5ec; " class="tipo-item-despesa"><svg class="svg-icon" viewBox="0 0 20 20">
 							<path d="M8.749,9.934c0,0.247-0.202,0.449-0.449,0.449H4.257c-0.247,0-0.449-0.202-0.449-0.449S4.01,9.484,4.257,9.484H8.3C8.547,9.484,8.749,9.687,8.749,9.934 M7.402,12.627H4.257c-0.247,0-0.449,0.202-0.449,0.449s0.202,0.449,0.449,0.449h3.145c0.247,0,0.449-0.202,0.449-0.449S7.648,12.627,7.402,12.627 M8.3,6.339H4.257c-0.247,0-0.449,0.202-0.449,0.449c0,0.247,0.202,0.449,0.449,0.449H8.3c0.247,0,0.449-0.202,0.449-0.449C8.749,6.541,8.547,6.339,8.3,6.339 M18.631,4.543v10.78c0,0.248-0.202,0.45-0.449,0.45H2.011c-0.247,0-0.449-0.202-0.449-0.45V4.543c0-0.247,0.202-0.449,0.449-0.449h16.17C18.429,4.094,18.631,4.296,18.631,4.543 M17.732,4.993H2.46v9.882h15.272V4.993z M16.371,13.078c0,0.247-0.202,0.449-0.449,0.449H9.646c-0.247,0-0.449-0.202-0.449-0.449c0-1.479,0.883-2.747,2.162-3.299c-0.434-0.418-0.714-1.008-0.714-1.642c0-1.197,0.997-2.246,2.133-2.246s2.134,1.049,2.134,2.246c0,0.634-0.28,1.224-0.714,1.642C15.475,10.331,16.371,11.6,16.371,13.078M11.542,8.137c0,0.622,0.539,1.348,1.235,1.348s1.235-0.726,1.235-1.348c0-0.622-0.539-1.348-1.235-1.348S11.542,7.515,11.542,8.137 M15.435,12.629c-0.214-1.273-1.323-2.246-2.657-2.246s-2.431,0.973-2.644,2.246H15.435z"></path>
 						</svg><strong> Salário :</strong></h2>
-          <h2 style="border-left: 5px solid #e642f5; " class="tipo-item"><svg class="svg-icon" viewBox="0 0 20 20">
+          <h2 style="border-left: 5px solid #e642f5; " class="tipo-item-despesa"><svg class="svg-icon" viewBox="0 0 20 20">
 	<path fill="none" d="M4.68,13.716v-0.169H4.554C4.592,13.605,4.639,13.658,4.68,13.716z M11.931,6.465
 	c-0.307-0.087-0.623,0.106-0.706,0.432l-1.389,5.484c-0.901,0.084-1.609,0.833-1.609,1.757c0,0.979,0.793,1.773,1.773,1.773
 	c0.979,0,1.773-0.794,1.773-1.773c0-0.624-0.324-1.171-0.812-1.486l1.377-5.439C12.422,6.887,12.239,6.552,11.931,6.465z
@@ -85,15 +90,23 @@
 	c-1.407,1.107-3.179,1.773-5.108,1.773c-1.93,0-3.701-0.666-5.108-1.773H4.68v-0.167C2.874,14.816,1.724,12.543,1.724,10
 	c0-4.571,3.706-8.276,8.276-8.276c4.57,0,8.275,3.706,8.275,8.276C18.275,12.543,17.126,14.816,15.32,16.335z"></path>
 </svg><strong> Investimento: </strong></h2>
+  <h2 style="border-left: 5px solid #f59e42; " class="tipo-item-despesa">
+    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: rotate(180deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);"><path d="M20.5 5A1.5 1.5 0 0 0 19 6.5V11h-1V4.5a1.5 1.5 0 0 0-3 0V11h-1V3.5a1.5 1.5 0 0 0-3 0V11h-1V5.5a1.5 1.5 0 0 0-3 0v10.81l-2.22-3.6a1.5 1.5 0 0 0-2.56 1.58l3.31 5.34A5 5 0 0 0 9.78 22H17a5 5 0 0 0 5-5V6.5A1.5 1.5 0 0 0 20.5 5z"></path></svg>
+    <strong> Serviço:</strong></h2>
+    <h2 style="border-left: 5px solid #3C465C; " class="tipo-item-despesa">
+     <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 2H5c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM5 20V4h14l.001 16H5z"></path><path d="M7 12h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zM7 6h10v4H7zm4 10h2v2h-2zm4-4h2v6h-2z"></path></svg>
+    <strong> Imposto:</strong></h2>
 <h2 class="tipo-item-total"><b>Total</b></h2>
         </div>
 
         <div class="valor ">
           <h2 class="tipo-texto"><strong>Valores</strong></h2>
-          <h2 class="tipo-item ml-8"><strong> R$ {{ TotalManu }}</strong></h2>
-          <h2 class="tipo-item"><strong> R$ {{ TotalInsumo }} </strong></h2>
-          <h2 class="tipo-item"><strong> R$ {{ TotalSal }} </strong></h2>
-          <h2 class="tipo-item"><strong> R$ {{ TotalInvestimento }} </strong></h2>
+          <h2 class="tipo-item-despesa ml-8"><strong> R$ {{ TotalManu }}</strong></h2>
+          <h2 class="tipo-item-despesa"><strong> R$ {{ TotalInsumo }} </strong></h2>
+          <h2 class="tipo-item-despesa"><strong> R$ {{ TotalSal }} </strong></h2>
+          <h2 class="tipo-item-despesa"><strong> R$ {{ TotalInvestimento }} </strong></h2>
+          <h2 class="tipo-item-despesa"><strong> R$ {{ TotalServico }} </strong></h2>
+          <h2 class="tipo-item-despesa"><strong> R$ {{ TotalImposto }} </strong></h2>
           <h2 class="tipo-item-total-result"><strong> R$ {{ TotalDespesa }}</strong></h2>
         </div>
       </div>
@@ -141,8 +154,9 @@
         <card3 class="saldo-fluxo" nome="Saldo:" v-bind:valor="IsSaldo" />
 
         <div class="button-cont">
+          
         <button @click="EmitirPdf()" class="button-cadastro flex flex-row ">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24" height="24" style="transform: ;msFilter:;"><path d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"></path></svg>Relatorio
+         relatório mensal     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24" height="24" style="transform: ;msFilter:;"><path d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"></path></svg>
           </button>
         </div>
     </div>
@@ -198,12 +212,15 @@ export default {
       TotalCred:0,
       TotalProd:0,
       TotalSald :0,
+      TotalServicoRec:0,
 //varivaeis da despesa
       TotalManu:0,
       TotalInsumo:0,
       TotalSal:0,
       TotalInvestimento:0,
-
+      TotalServico:0,
+      TotalImposto:0,
+// variaveis controle da data
       NomeDoMes:'',
      AnoDoBalanco:0,
      MesDoBalanco:0,
@@ -260,24 +277,25 @@ export default {
         this.NomeDoMes= "Dezembro";
       }
         //mostra a data atual
-       console.log('este é o mes atual: |' + this.MesDoBalanco + ' -> ' + this.NomeDoMes + "|" + this.AnoDoBalanco )
+       
       
       document.getElementById("mes").value = this.MesDoBalanco;
       document.getElementById("ano").value = this.AnoDoBalanco;
 
 
-      console.log("disparando função Pegar Dados");
+      
       const db = new sqlite3.Database(
         "./database/storage.db",
         (err) => {
           if (err) {
             return console.error(err.message);
           }
-          console.log("conexão ao Database [FLUXO]: OK");
+          
         }
       );
 
       
+
 
       db.each("SELECT valor FROM receita WHERE dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
         if (err) {
@@ -312,7 +330,20 @@ export default {
         
         this.TotalAtivo = parseFloat(Resultado.toFixed(2));
          this.ativo = parseFloat(Resultado.toFixed(2));
-              console.log('teste')
+              
+        
+      });
+      db.each("SELECT valor FROM receita WHERE tipo='Serviço' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+
+        const Resultado = this.TotalServicoRec + row.valor;
+
+        
+        this.TotalServicoRec = parseFloat(Resultado.toFixed(2));
+         
+              
         
       });
 
@@ -375,6 +406,16 @@ export default {
        
       });
 
+      db.each("SELECT valor FROM despesa WHERE tipo='Serviço' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        const Resultado = this.TotalServico + row.valor;
+
+        this.TotalServico = parseFloat(Resultado.toFixed(2));
+       
+      });
+
          db.each("SELECT valor FROM despesa WHERE tipo='Salário' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
         if (err) {
           return console.error(err.message);
@@ -395,12 +436,22 @@ export default {
        
       });
 
+      db.each("SELECT valor FROM despesa WHERE tipo='Imposto' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        const Resultado = this.TotalImposto+ row.valor;
+
+        this.TotalImposto = parseFloat(Resultado.toFixed(2));
+       
+      });
+
          
        
 
       
 
-      console.log("dados Carregados [FLUXO]: OK");
+     
       db.close();
 
          
@@ -438,6 +489,7 @@ export default {
       var TotalProducaoRelatorio = 'R$  '+ String(this.TotalCred)
       var TotalCreditoRelatorio = 'R$  '+ String(this.TotalProd)
       var TotalSaldoRelatorio = 'R$  '+ String(this.TotalSald)
+      var TotalServicoRecRelatorio = 'R$  '+ String(this.TotalServicoRec)
      
 
       var TotalDespesaRelatorio = 'R$  '+ String(this.TotalDespesa)
@@ -445,6 +497,8 @@ export default {
       var TotalSalarioRelatorio = 'R$  '+ String(this.TotalSal)
       var TotalInvestimentoRelatorio = 'R$  '+ String(this.TotalInvestimento)
       var TotalInsumoRelatorio = 'R$  '+ String(this.TotalInsumo)
+       var TotalServicoRelatorio = 'R$  '+ String(this.TotalServico)
+       var TotalImpostoRelatorio = 'R$  '+ String(this.TotalImposto)
       var resultadorel = this.TotalReceita - this.TotalDespesa
       var TotalResultadoRelatorio
      
@@ -479,17 +533,22 @@ export default {
       doc.text(" Receita +", 10, 90);
       doc.setFontSize(15);
       doc.setTextColor("#5C5C5C");
-      doc.text("Ativos", 10, 110);
-      doc.text("Produção", 10, 120); 
-      doc.text("Crédito", 10, 130);
-      doc.text("Saldo", 10, 140);
-      doc.text("Total", 10, 160);
+      doc.text("Ativo:", 10, 110);
+      doc.text("Produção:", 10, 120); 
+      doc.text("Crédito:", 10, 130);
+      doc.text("Saldo:", 10, 140);
+      doc.text("Serviço prestado:", 10, 150);
+      doc.setDrawColor("#5C5C5C");
+      doc.line(100, 155, 10, 155);
+      doc.text("Total:", 10, 165);
     
-      doc.text( TotalReceitaRelatorio, 50, 160);
-      doc.text( TotalAtivoRelatorio, 50, 110);
-      doc.text( TotalProducaoRelatorio, 50, 120);
-      doc.text( TotalCreditoRelatorio, 50, 130);
-      doc.text( TotalSaldoRelatorio, 50, 140);
+      
+      doc.text( TotalAtivoRelatorio, 60, 110);
+      doc.text( TotalProducaoRelatorio, 60, 120);
+      doc.text( TotalCreditoRelatorio, 60, 130);
+      doc.text( TotalSaldoRelatorio, 60, 140);
+      doc.text( TotalServicoRecRelatorio, 60, 150);
+      doc.text( TotalReceitaRelatorio, 60, 165);
       
       
 
@@ -500,24 +559,33 @@ export default {
       doc.text("Despesa -", 10, 190);
       doc.setFontSize(15);
       doc.setTextColor("#5C5C5C");
-      doc.text("Manutenção", 10, 210); 
-      doc.text("Insumo", 10, 220);
-      doc.text("Salário", 10, 230);
-      doc.text("Investimento", 10, 240);
-      doc.text("Total", 10, 260);
+      doc.text("Manutenção:", 10, 210); 
+      doc.text("Insumo:", 10, 220);
+      doc.text("Salário:", 10, 230);
+      doc.text("Investimento:", 10, 240);
+      doc.text("Serviço contratado:", 10, 250);
+      doc.text("Imposto:", 10, 260);
+      doc.setDrawColor("#5C5C5C");
+      doc.line(100, 263, 10, 263);
+      doc.text("Total:", 10, 270);
       
-      doc.text( TotalManutencaoRelatorio, 50, 210);
-      doc.text( TotalInsumoRelatorio, 50, 220);
-      doc.text( TotalSalarioRelatorio, 50, 230);
-      doc.text( TotalInvestimentoRelatorio, 50, 240);
-      doc.text( TotalDespesaRelatorio, 50, 260);
+      doc.text( TotalManutencaoRelatorio, 60, 210);
+      doc.text( TotalInsumoRelatorio, 60, 220);
+      doc.text( TotalSalarioRelatorio, 60, 230);
+      doc.text( TotalInvestimentoRelatorio, 60, 240);
+      doc.text( TotalServicoRelatorio, 60, 250);
+      doc.text( TotalImpostoRelatorio, 60, 260);
+      doc.text( TotalDespesaRelatorio, 60, 270);
+      
 
       doc.setFontSize(20);
-      doc.line(200, 263, 10, 263);
-      doc.setTextColor("#5C5C5C");
-      doc.text("Saldo", 10, 275);
-      doc.text(TotalResultadoRelatorio, 50, 275);
-      doc.save('Relatorio'+data)
+      
+      doc.setTextColor("#000000");
+      doc.setDrawColor("#000000");
+      doc.line(200, 275, 10, 275);
+      doc.text("Saldo", 10, 285);
+      doc.text(TotalResultadoRelatorio, 50, 285);
+      doc.save('Relatório - '+data)
       
           
     
@@ -564,13 +632,13 @@ export default {
       } else if (mes === 12) {
         this.NomeDoMes= "Dezembro";
       }
-      console.log('novo mes ->'+this.MesDoBalanco)
+     
       this.Update()
     },
 
    TrocarAno:function(event){
       this.AnoDoBalanco = parseInt(event.target.value)
-      console.log('novo ano->'+this.AnoDoBalanco)
+     
        this.Update()
     },
 
@@ -583,7 +651,7 @@ export default {
 
     Update:function(){
     
-      console.log('chamando update')
+     
 
       //zerar todas as variaves para evitar que acumulem
       this.TotalReceita = 0
@@ -601,6 +669,9 @@ export default {
       this.TotalInsumo = 0
       this.TotalSal = 0
       this.TotalInvestimento = 0
+      this.TotalServico = 0
+      this.TotalImposto = 0
+      this.TotalServicoRec = 0
      
 
  
@@ -611,8 +682,7 @@ export default {
           if (err) {
             return console.error(err.message);
           }
-          console.log("trocando mes para :" + this.MesDoBalanco);
-           console.log("trocando ano para :" + this.AnoDoBalanco);
+         
         }
       );
       
@@ -647,7 +717,20 @@ export default {
         
         this.TotalAtivo = parseFloat(Resultado.toFixed(2));
          this.ativo = parseFloat(Resultado.toFixed(2));
-              console.log('teste')
+              
+        
+      });
+      db.each("SELECT valor FROM receita WHERE tipo='Serviço' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+
+        const Resultado = this.TotalServicoRec + row.valor;
+
+        
+        this.TotalServicoRec = parseFloat(Resultado.toFixed(2));
+        
+              
         
       });
 
@@ -696,6 +779,15 @@ export default {
         this.TotalManu = parseFloat(Resultado.toFixed(2));
        
       });
+      db.each("SELECT valor FROM despesa WHERE tipo='Serviço' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        const Resultado = this.TotalServico+ row.valor;
+
+        this.TotalServico = parseFloat(Resultado.toFixed(2));
+       
+      });
 
       db.each("SELECT valor FROM despesa WHERE tipo='Insumo' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
         if (err) {
@@ -724,6 +816,16 @@ export default {
         const Resultado = this.TotalInvestimento + row.valor;
 
         this.TotalInvestimento = parseFloat(Resultado.toFixed(2));
+       
+      });
+
+      db.each("SELECT valor FROM despesa WHERE tipo='Imposto' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+        if (err) {
+          return console.error(err.message);
+        }
+        const Resultado = this.TotalImposto+ row.valor;
+
+        this.TotalImposto = parseFloat(Resultado.toFixed(2));
        
       });
 
@@ -806,7 +908,7 @@ export default {
 }
 .tipo-texto {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background-color: #111827;
   width: 100%;
   color: white;
@@ -827,7 +929,18 @@ export default {
   
   padding-left:10px ;
  
-  height:40px;
+  height:35px;
+   display: flex;
+    align-items: center;
+  
+}
+.tipo-item-despesa {
+  margin-left: 60px;
+  margin-bottom: 10px;
+  
+  padding-left:10px ;
+ 
+  height:27px;
    display: flex;
     align-items: center;
   
@@ -953,7 +1066,7 @@ height:100px ;
   color: rgb(255, 255, 255);
   
   font-size: 16px;
-  margin-top: 60px;
+  margin-top: 50px;
   width: 200px;
   height: 70px;
   box-shadow: rgba(0, 0, 0, 0.637) 0px 3px 8px;

@@ -26,6 +26,8 @@ export default {
     valorB:Number,
     valorC:Number,
     valorD:Number,
+    valorE:Number,
+    valorF:Number,
 
   },
   
@@ -33,12 +35,12 @@ export default {
     const doughnutChart = {
       type: "doughnut",
       data: {
-        labels: ["Manutenção", "Insumo", "Salário", "Investimento"],
+        labels: ["Manutenção", "Insumo", "Salário", "Investimento","Serviço","Imposto"],
         datasets: [
           
           {
-            backgroundColor: ["#424bf5", "#053b01 ", "#42f5ec", "#e642f5"],
-            data: [props.valorA, props.valorB, props.valorC, props.valorD],
+            backgroundColor: ["#424bf5", "#053b01 ", "#42f5ec", "#e642f5","#f59e42","#3C465C"],
+            data: [props.valorA, props.valorB, props.valorC, props.valorD,props.valorE,props.valorF],
           },
         ],
        

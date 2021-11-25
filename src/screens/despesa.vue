@@ -19,6 +19,10 @@
               <option value="Insumo">Insumo</option>
               <option value="Salário">Salario</option>
               <option value="Investimento">Investimento</option>
+              <option value="Serviço">Serviço</option>
+              <option value="Imposto">Imposto</option>
+              
+                
             </select>
           </div>
 
@@ -164,6 +168,13 @@
                               c0-4.571,3.706-8.276,8.276-8.276c4.57,0,8.275,3.706,8.275,8.276C18.275,12.543,17.126,14.816,15.32,16.335z"
                   ></path></svg
               ></span>
+                    <span v-if="Item.tipo === 'Serviço'">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="22" height="22" viewBox="0 0 24 24" style="fill: gray;transform: rotate(180deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);"><path d="M20.5 5A1.5 1.5 0 0 0 19 6.5V11h-1V4.5a1.5 1.5 0 0 0-3 0V11h-1V3.5a1.5 1.5 0 0 0-3 0V11h-1V5.5a1.5 1.5 0 0 0-3 0v10.81l-2.22-3.6a1.5 1.5 0 0 0-2.56 1.58l3.31 5.34A5 5 0 0 0 9.78 22H17a5 5 0 0 0 5-5V6.5A1.5 1.5 0 0 0 20.5 5z"></path></svg>
+                    </span>
+
+                      <span v-if="Item.tipo === 'Imposto'">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 2H5c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM5 20V4h14l.001 16H5z"></path><path d="M7 12h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zM7 6h10v4H7zm4 10h2v2h-2zm4-4h2v6h-2z"></path></svg>
+                    </span>
             </td>
 
             <td class="px-4 py-1">
@@ -312,14 +323,14 @@
       <transition name="model">
         <div class="model-wrapper animate__animated animate__fadeInDown">
           <form class="form-wrapper" @submit.prevent="EnviarDados(event)">
-            <strong><h3 class="gray-900">Entrada:</h3></strong>
+            <strong><h3 class="gray-900">Saída:</h3></strong>
             <label class="label-model" for="name">Nome :</label>
             <input
               v-model="nomeR"
               class="input-model"
               type="text"
               id="name"
-              placeholder="Digite um nome para a entrada"
+              placeholder="Digite um nome para a saída"
               required
             />
             <label class="label-model" for="tipo">Tipo:</label>
@@ -329,6 +340,8 @@
               <option>Salário</option>
               <option>Investimento</option>
               <option>Manutenção</option>
+              <option>Serviço</option>
+               <option>Imposto</option>
             </select>
             <label class="label-model" for="valor">Valor:</label>
             <input
@@ -337,7 +350,7 @@
               class="input-model"
               type="number"
               id="valor"
-              placeholder="Digite o valor da entrada"
+              placeholder="Digite o valor para a saída"
               required
             />
             <label class="label-model" for="data">Data:</label>
@@ -354,7 +367,7 @@
               class="input-model-desc"
               type="text"
               id="desc"
-              placeholder="Digite observações sobre a entrada"
+              placeholder="Digite observações sobre a saída"
             />
             <div class="button-container flex">
               <input
@@ -963,35 +976,7 @@ export default {
 
         this.dados = this.dadosPage.slice(0, 10);
 
-        this.$refs.firstPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-      } else if (event.target.value == "valorAlto") {
-        this.dadosPage.sort(function (a, b) {
-          return b.valor - a.valor;
-        });
-
-        this.dados = this.dadosPage.slice(0, 10);
-
-        this.$refs.firstPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
-        this.$refs.secondPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.thirdPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.forthPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-        this.$refs.fifthPage.className =
-          "px-3 py-1 mr-3 cursor-pointer rounded-full";
-      }
-         while (this.dados.length < 10) {
+        while (this.dados.length < 10) {
           this.dados.push({
             nome: "...",
             tipo: "...",
@@ -999,6 +984,51 @@ export default {
             valor: 0,
           });
         }
+
+        this.$refs.firstPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
+        this.$refs.secondPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.thirdPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.forthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.fifthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+         
+      } else if (event.target.value == "valorAlto") {
+        this.dadosPage.sort(function (a, b) {
+          return b.valor - a.valor;
+          
+        });
+
+        
+
+        this.dados = this.dadosPage.slice(0, 10);
+
+        while (this.dados.length < 10) {
+          this.dados.push({
+            nome: "...",
+            tipo: "...",
+            data: "...",
+            valor: 0,
+          });
+        }
+
+        this.$refs.firstPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full bg-gray-900 border-2 border-green-300 text-white";
+        this.$refs.secondPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.thirdPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.forthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+        this.$refs.fifthPage.className =
+          "px-3 py-1 mr-3 cursor-pointer rounded-full";
+          
+          
+      }
+        
     },
 
     

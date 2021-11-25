@@ -158,7 +158,7 @@ protocol.registerSchemesAsPrivileged([
     window.loadURL('app://./index.html')
   }
 
-
+  window.maximize()
 
 }
 

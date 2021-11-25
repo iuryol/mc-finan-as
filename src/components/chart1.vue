@@ -21,6 +21,8 @@ export default {
     valorB:Number,
     valorC:Number,
     valorD:Number,
+    valorE:Number,
+
 
   },
   
@@ -29,12 +31,12 @@ export default {
       type: "doughnut",
       data: {
         
-        labels: ["Ativo", "Produção", "Crédito", "Saldo"],
+        labels: ["Ativo", "Produção", "Crédito", "Saldo","serviço"],
         
         datasets: [
           {
-            backgroundColor: ["#4287f5", "#f5cb42", "#42f57b", "#f54242"],
-            data: [props.valorA, props.valorB, props.valorC, props.valorD],
+            backgroundColor: ["#4287f5", "#f5cb42", "#42f57b", "#f54242","#3c1747"],
+            data: [props.valorA, props.valorB, props.valorC, props.valorD,props.valorE],
           },
         ],
         
