@@ -93,9 +93,9 @@
   <h2 style="border-left: 5px solid #f59e42; " class="tipo-item-despesa">
     <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: rotate(180deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);"><path d="M20.5 5A1.5 1.5 0 0 0 19 6.5V11h-1V4.5a1.5 1.5 0 0 0-3 0V11h-1V3.5a1.5 1.5 0 0 0-3 0V11h-1V5.5a1.5 1.5 0 0 0-3 0v10.81l-2.22-3.6a1.5 1.5 0 0 0-2.56 1.58l3.31 5.34A5 5 0 0 0 9.78 22H17a5 5 0 0 0 5-5V6.5A1.5 1.5 0 0 0 20.5 5z"></path></svg>
     <strong> Serviço:</strong></h2>
-    <h2 style="border-left: 5px solid #3C465C; " class="tipo-item-despesa">
+    <h2 style="border-left: 5px solid #3C465C; " class="tipo-item-despesa-imp">
      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 2H5c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM5 20V4h14l.001 16H5z"></path><path d="M7 12h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zM7 6h10v4H7zm4 10h2v2h-2zm4-4h2v6h-2z"></path></svg>
-    <strong> Imposto:</strong></h2>
+    <strong> Impostos e taxas:</strong></h2>
 <h2 class="tipo-item-total"><b>Total</b></h2>
         </div>
 
@@ -281,7 +281,7 @@ export default {
       
       document.getElementById("mes").value = this.MesDoBalanco;
       document.getElementById("ano").value = this.AnoDoBalanco;
-
+    
 
       
       const db = new sqlite3.Database(
@@ -436,7 +436,7 @@ export default {
        
       });
 
-      db.each("SELECT valor FROM despesa WHERE tipo='Imposto' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+      db.each("SELECT valor FROM despesa WHERE tipo='Impostos e Taxas' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -531,6 +531,8 @@ export default {
       doc.setFontSize(20);
       doc.setTextColor("#5C5C5C");
       doc.text(" Receita +", 10, 90);
+        
+    
       doc.setFontSize(15);
       doc.setTextColor("#5C5C5C");
       doc.text("Ativo:", 10, 110);
@@ -564,7 +566,7 @@ export default {
       doc.text("Salário:", 10, 230);
       doc.text("Investimento:", 10, 240);
       doc.text("Serviço contratado:", 10, 250);
-      doc.text("Imposto:", 10, 260);
+      doc.text("Impostos e Taxas:", 10, 260);
       doc.setDrawColor("#5C5C5C");
       doc.line(100, 263, 10, 263);
       doc.text("Total:", 10, 270);
@@ -819,7 +821,7 @@ export default {
        
       });
 
-      db.each("SELECT valor FROM despesa WHERE tipo='Imposto' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
+      db.each("SELECT valor FROM despesa WHERE tipo='Impostos e Taxas' AND dataMes = ? AND dataAno = ?;",[this.MesDoBalanco,this.AnoDoBalanco], (err, row) => {
         if (err) {
           return console.error(err.message);
         }
@@ -944,6 +946,16 @@ export default {
    display: flex;
     align-items: center;
   
+}
+.tipo-item-despesa-imp{
+  margin-left: 60px;
+  margin-bottom: 10px;
+  padding-left:10px ;
+  height:27px;
+  width: 200px;
+  
+  display: flex;
+  align-items: center;
 }
 .tipo-item-total{
  

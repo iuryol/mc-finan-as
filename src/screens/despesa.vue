@@ -20,7 +20,7 @@
               <option value="Salário">Salario</option>
               <option value="Investimento">Investimento</option>
               <option value="Serviço">Serviço</option>
-              <option value="Imposto">Imposto</option>
+              <option value="Impostos e Taxas">Impostos e Taxas</option>
               
                 
             </select>
@@ -172,7 +172,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="22" height="22" viewBox="0 0 24 24" style="fill: gray;transform: rotate(180deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);"><path d="M20.5 5A1.5 1.5 0 0 0 19 6.5V11h-1V4.5a1.5 1.5 0 0 0-3 0V11h-1V3.5a1.5 1.5 0 0 0-3 0V11h-1V5.5a1.5 1.5 0 0 0-3 0v10.81l-2.22-3.6a1.5 1.5 0 0 0-2.56 1.58l3.31 5.34A5 5 0 0 0 9.78 22H17a5 5 0 0 0 5-5V6.5A1.5 1.5 0 0 0 20.5 5z"></path></svg>
                     </span>
 
-                      <span v-if="Item.tipo === 'Imposto'">
+                      <span v-if="Item.tipo === 'Impostos e Taxas'">
                       <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 2H5c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM5 20V4h14l.001 16H5z"></path><path d="M7 12h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zM7 6h10v4H7zm4 10h2v2h-2zm4-4h2v6h-2z"></path></svg>
                     </span>
             </td>
@@ -341,7 +341,7 @@
               <option>Investimento</option>
               <option>Manutenção</option>
               <option>Serviço</option>
-               <option>Imposto</option>
+               <option>Impostos e Taxas</option>
             </select>
             <label class="label-model" for="valor">Valor:</label>
             <input

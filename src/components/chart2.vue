@@ -35,7 +35,7 @@ export default {
     const doughnutChart = {
       type: "doughnut",
       data: {
-        labels: ["Manutenção", "Insumo", "Salário", "Investimento","Serviço","Imposto"],
+        labels: ["Manutenção", "Insumo", "Salário", "Investimento","Serviço","Impostos e Taxas"],
         datasets: [
           
           {
